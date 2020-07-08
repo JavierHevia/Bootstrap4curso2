@@ -20,5 +20,8 @@
   "homepage": "https://github.com/JavierHevia/Bootstrap4curso2#readme",
   "devDependencies": {
     "lite-server": "^2.5.4"
+  },
+  "dependencies": {
+    "create-react-app": "^3.4.1"
   }
 }
