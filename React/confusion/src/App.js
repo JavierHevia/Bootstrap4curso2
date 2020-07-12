@@ -5,6 +5,7 @@ import './App.css';
 //  import Menu from './components/MenuComponent';
 //  import { DISHES } from './shared/dishes';
 import Main from './components/MainComponent';
+import { BrowserRouter } from 'react-router-dom';
 
 class App extends Component {
 
@@ -15,10 +16,11 @@ class App extends Component {
   //   };
   // }
 
-  render(){
+  render() {
     return (
-      <div className="App">
-        {/* <header className="App-header">
+      <BrowserRouter>
+        <div className="App">
+          {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -33,7 +35,7 @@ class App extends Component {
         </a>
         </header> */}
 
-        {/* <div>
+          {/* <div>
           <Navbar dark color="primary">
             <div className="container">
               <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
@@ -42,9 +44,10 @@ class App extends Component {
           <Menu  dishes={this.state.dishes}/>
         </div> */}
 
-        <Main />
-      
-      </div>
+          <Main />
+
+        </div>
+      </BrowserRouter>
     );
   }
 }
