@@ -9,6 +9,7 @@ import Footer from './FooterComponent';
 import Home from './HomeComponent';
 
 import Contact from './ContactComponent';
+import AboutComponent  from './AboutComponent';
 
 import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
@@ -16,6 +17,14 @@ import { LEADERS } from '../shared/leaders';
 import { PROMOTIONS } from '../shared/promotions';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+
+
+function RenderCard({item}) {
+  return (
+    <AboutComponent leaders= {item}/>
+  );
+
+}
 
 class Main extends Component {
 
@@ -64,6 +73,7 @@ class Main extends Component {
           <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
           <Route path='/menu/:dishId' component={DishWithId} />
           <Route exact path='/contactus' component={Contact} />
+          <Route exact path='/aboutus' component={() => <AboutComponent leaders={this.state.leaders} />}/> 
               <Redirect to="/home" />
         </Switch>
 
