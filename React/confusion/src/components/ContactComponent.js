@@ -29,6 +29,7 @@ class Contact extends Component {
         this.handleBlur = this.handleBlur.bind(this);
     }
 
+    // cambiamos el estado de los campos
     handleInputChange(event) {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -45,6 +46,7 @@ class Contact extends Component {
         event.preventDefault();
     }
 
+    // por medio de esto sabemos si esta utilizo o no 
     handleBlur = (field) => (evt) => {
         this.setState({
             touched: { ...this.state.touched, [field]: true }
@@ -79,6 +81,8 @@ class Contact extends Component {
 
         if (this.state.touched.email && email.split('').filter(x => x === '@').length !== 1)
             errors.email = 'Email should contain a @';
+        else if (this.state.touched.email && email.split('').filter(x => x === '.').length !== 1)
+            errors.email = 'Email should contain .';
 
         return errors;
     }
