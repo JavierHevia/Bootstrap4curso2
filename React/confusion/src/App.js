@@ -7,6 +7,12 @@ import './App.css';
 import Main from './components/MainComponent';
 import { BrowserRouter } from 'react-router-dom';
 
+// REDUX
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux/configureStore';
+
+const store = ConfigureStore();
+
 class App extends Component {
 
   // constructor(props) {
@@ -18,9 +24,10 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          {/* <header className="App-header">
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="App">
+            {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -35,7 +42,7 @@ class App extends Component {
         </a>
         </header> */}
 
-          {/* <div>
+            {/* <div>
           <Navbar dark color="primary">
             <div className="container">
               <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
@@ -44,10 +51,11 @@ class App extends Component {
           <Menu  dishes={this.state.dishes}/>
         </div> */}
 
-          <Main />
+            <Main />
 
-        </div>
-      </BrowserRouter>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
