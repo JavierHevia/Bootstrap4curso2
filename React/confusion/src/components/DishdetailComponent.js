@@ -36,13 +36,16 @@ function RenderDish({ dish }) {
     )
 }
 
-function handleSubmit(values) {
+function handleSubmit(dishId,values,addComment) {
     console.log('Current State is: ' + JSON.stringify(values));
-    alert('Current State is: ' + JSON.stringify(values));
+    //alert('Current State is: ' + JSON.stringify(values));
+    //alert('id ' + dishId)
+   
+    addComment(dishId, values.select, values.yourname, values.message);
 }
 
 
-function CommentForm() {
+function CommentForm({dishId, addComment}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -59,8 +62,8 @@ function CommentForm() {
             <Modal isOpen={show} toggle={handleClose}>
                 <ModalHeader toggle={handleClose}> Summit Comment</ModalHeader>
                 <ModalBody>
-                    <LocalForm onSubmit={(values) => handleSubmit(values)}>
-
+                    <LocalForm onSubmit={(values) => handleSubmit(dishId,values,addComment)}>
+ 
                         <Label for="rating">Rating</Label>
                         <Control.select model=".select" name="select" className="form-control">
                             <option>1</option>
@@ -113,7 +116,7 @@ function CommentForm() {
 
 
 
-function RenderComments({ comment }) {
+function RenderComments({ comment, addComment, dishId }) {
 
     if (comment != null) {
         return (
@@ -131,7 +134,8 @@ function RenderComments({ comment }) {
                                 );
                             })}
                         </ul>
-                        <CommentForm />
+                        
+                        <CommentForm dishId={dishId} addComment={addComment} />
 
                     </CardBody>
                 </Card>
@@ -151,6 +155,7 @@ const DishDetail = (props) => {
                 <Breadcrumb>
                     <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
                     <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                   
                 </Breadcrumb>
                 <div className="col-12">
                     <h3>{props.dish.name}</h3>
@@ -159,7 +164,11 @@ const DishDetail = (props) => {
             </div>
             <div className="row">
                 <RenderDish dish={props.dish} />
-                <RenderComments comment={props.comments} />
+                <RenderComments comment={props.comments}
+                                addComment={props.addComment}
+                                dishId={props.dish.id}
+
+                />
             </div>
         </div>
     )
