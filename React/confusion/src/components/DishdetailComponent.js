@@ -62,9 +62,7 @@ function CommentForm() {
                     <LocalForm onSubmit={(values) => handleSubmit(values)}>
 
                         <Label for="rating">Rating</Label>
-                        <Control.select model=".rating" id="rating" name="rating"
-                            placeholder="Rating"
-                            className="form-control">
+                        <Control.select model=".select" name="select" className="form-control">
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
