@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import {
     Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader,
-    ModalBody, Input, Label, Form, FormGroup, Col, Row
+    ModalBody, Label
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-
+import { Loading } from './LoadingComponent';
 
 //render() {
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const isNumber = (val) => !isNaN(Number(val));
-const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+
 
 function RenderDish({ dish }) {
     console.log('Dishdetail Component render is invoked')
@@ -36,22 +35,20 @@ function RenderDish({ dish }) {
     )
 }
 
-function handleSubmit(dishId,values,addComment) {
+function handleSubmit(dishId, values, addComment) {
     console.log('Current State is: ' + JSON.stringify(values));
     //alert('Current State is: ' + JSON.stringify(values));
     //alert('id ' + dishId)
-   
+
     addComment(dishId, values.select, values.yourname, values.message);
 }
 
 
-function CommentForm({dishId, addComment}) {
+function CommentForm({ dishId, addComment }) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-
-    const toggle = () => setDropdownOpen(prevState => !prevState);
+      
     return (
         <>
             <Button onClick={handleShow} className="btn btn-outline-dark">
@@ -62,8 +59,8 @@ function CommentForm({dishId, addComment}) {
             <Modal isOpen={show} toggle={handleClose}>
                 <ModalHeader toggle={handleClose}> Summit Comment</ModalHeader>
                 <ModalBody>
-                    <LocalForm onSubmit={(values) => handleSubmit(dishId,values,addComment)}>
- 
+                    <LocalForm onSubmit={(values) => handleSubmit(dishId, values, addComment)}>
+
                         <Label for="rating">Rating</Label>
                         <Control.select model=".select" name="select" className="form-control">
                             <option>1</option>
@@ -101,10 +98,8 @@ function CommentForm({dishId, addComment}) {
                             rows="8"
                             className="form-control" />
 
+                        <Button type="submit" color="primary">Submit</Button>
 
-                        <Button type="submit" color="primary">
-                            Submit
-                                    </Button>
                     </LocalForm>
                 </ModalBody>
             </Modal>
@@ -134,7 +129,7 @@ function RenderComments({ comment, addComment, dishId }) {
                                 );
                             })}
                         </ul>
-                        
+
                         <CommentForm dishId={dishId} addComment={addComment} />
 
                     </CardBody>
@@ -149,33 +144,52 @@ function RenderComments({ comment, addComment, dishId }) {
 }
 
 const DishDetail = (props) => {
-    return (
-        <div className="container">
-            <div className="row">
-                <Breadcrumb>
-                    <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-                   
-                </Breadcrumb>
-                <div className="col-12">
-                    <h3>{props.dish.name}</h3>
-                    <hr />
+
+    if (props.isLoading) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
                 </div>
             </div>
-            <div className="row">
-                <RenderDish dish={props.dish} />
-                <RenderComments comment={props.comments}
-                                addComment={props.addComment}
-                                dishId={props.dish.id}
-
-                />
+        );
+    } else if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMess}</h4>
+                </div>
             </div>
-        </div>
-    )
+        );
+    } else if (props.dish != null) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
 
-    return (
-        { DishDetail }
-    )
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
+                </div>
+                <div className="row">
+                    <RenderDish dish={props.dish} />
+                    <RenderComments comment={props.comments}
+                        addComment={props.addComment}
+                        dishId={props.dish.id}
+
+                    />
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <div></div>
+        )
+    }
 }
 
 
