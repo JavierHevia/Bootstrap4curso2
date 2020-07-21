@@ -54,8 +54,6 @@ function CommentForm({ dishId, addComment }) {
             <Button onClick={handleShow} className="btn btn-outline-dark">
                 <span className="fa fa-edit fa-lg"></span> Submit Comment
             </Button>
-
-
             <Modal isOpen={show} toggle={handleClose}>
                 <ModalHeader toggle={handleClose}> Summit Comment</ModalHeader>
                 <ModalBody>
@@ -99,11 +97,9 @@ function CommentForm({ dishId, addComment }) {
                             className="form-control" />
 
                         <Button type="submit" color="primary">Submit</Button>
-
                     </LocalForm>
                 </ModalBody>
             </Modal>
-
         </>
     );
 }
@@ -180,7 +176,6 @@ const DishDetail = (props) => {
                     <RenderComments comment={props.comments}
                         addComment={props.addComment}
                         dishId={props.dish.id}
-
                     />
                 </div>
             </div>
