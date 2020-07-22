@@ -1,0 +1,8 @@
+json-server --watch db.json -p 3001 -d 2000
+
+HOME:
+    http://localhost:3001
+
+IMAGES:
+
+    http://localhost:3001/images/alberto.png

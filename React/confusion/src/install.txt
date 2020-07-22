@@ -11,3 +11,6 @@ yarn add react-redux-form@1.16.8
 // Installing Redux Thunk and Logger
 yarn add redux-thunk@2.2.0
 yarn add redux-logger@3.0.6
+
+// install Fetch 
+yarn add cross-fetch@2.1.0
