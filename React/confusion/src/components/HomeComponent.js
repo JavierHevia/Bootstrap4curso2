@@ -7,13 +7,14 @@ import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
 function RenderCard({ item, isLoading, errMess }) {
-
+   
     if (isLoading) {
         return (
             <Loading />
         );
     }
-    else if (errMess) {
+    else if (errMess || item === undefined) {
+        //alert(errMess)
         return (
             <h4>{errMess}</h4>
         );
