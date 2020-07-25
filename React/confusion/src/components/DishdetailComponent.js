@@ -36,16 +36,16 @@ function RenderDish({ dish }) {
     )
 }
 
-function handleSubmit(dishId, values, addComment) {
+function handleSubmit(dishId, values, postComment  ) {
     console.log('Current State is: ' + JSON.stringify(values));
     //alert('Current State is: ' + JSON.stringify(values));
     //alert('id ' + dishId)
 
-    addComment(dishId, values.select, values.yourname, values.message);
+    postComment(dishId, values.select, values.yourname, values.message);
 }
 
 
-function CommentForm({ dishId, addComment }) {
+function CommentForm({ dishId, postComment }) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -58,7 +58,7 @@ function CommentForm({ dishId, addComment }) {
             <Modal isOpen={show} toggle={handleClose}>
                 <ModalHeader toggle={handleClose}> Summit Comment</ModalHeader>
                 <ModalBody>
-                    <LocalForm onSubmit={(values) => handleSubmit(dishId, values, addComment)}>
+                    <LocalForm onSubmit={(values) => handleSubmit(dishId, values, postComment)}>
 
                         <Label for="rating">Rating</Label>
                         <Control.select model=".select" name="select" className="form-control">
@@ -108,7 +108,7 @@ function CommentForm({ dishId, addComment }) {
 
 
 
-function RenderComments({ comment, addComment, dishId }) {
+function RenderComments({ comment, postComment, dishId }) {
 
     if (comment != null) {
         return (
@@ -127,7 +127,7 @@ function RenderComments({ comment, addComment, dishId }) {
                             })}
                         </ul>
 
-                        <CommentForm dishId={dishId} addComment={addComment} />
+                        <CommentForm dishId={dishId} postComment={postComment} />
 
                     </CardBody>
                 </Card>
@@ -175,7 +175,7 @@ const DishDetail = (props) => {
                 <div className="row">
                     <RenderDish dish={props.dish} />
                     <RenderComments comment={props.comments}
-                        addComment={props.addComment}
+                       postComment={props.postComment}
                         dishId={props.dish.id}
                     />
                 </div>
