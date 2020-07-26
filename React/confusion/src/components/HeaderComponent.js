@@ -4,7 +4,7 @@ import {
     ModalHeader, ModalBody, Form, FormGroup, Input, Label
 } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
-import ScrollAnimation from "animate.css/animate.min.css";
+import { Fade, Loop, Transform  } from 'react-animation-components'
 
 
 class Header extends Component {
@@ -77,9 +77,14 @@ class Header extends Component {
                     <div className="container">
                         <div className="row row-header">
                             <div className="col-12 col-sm-6">
-                            
-                                <h1>Ristorante con Fusion</h1>
-                                <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+                            <Transform enterTransform="translateX(100px)" in>
+                                    <h1>Ristorante con Fusion</h1>
+                                </Transform>
+                                <Loop in iterations={5.5}>
+                                    <Fade>
+                                        <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+                                    </Fade>
+                                </Loop>
                             </div>
                         </div>
                     </div>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Row, Col, Label} from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Button, Row, Col, Label } from 'reactstrap';
 import { Control, Form, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
 
 const required = (val) => val && val.length;
-const maxLength = (len) => (val) =>  !(val)  || (val.length <= len);
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 const isNumber = (val) => !isNaN(Number(val));
 const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
@@ -20,7 +20,10 @@ class Contact extends Component {
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+
+        this.props.postFeedback(values.firstname, values.lastname, values.telnum, values.email, values.agree, values.contactType, values.message);
         this.props.resetFeedbackForm(); // para borrar el feedback
+       
     }
     render() {
         return (
@@ -154,6 +157,24 @@ class Contact extends Component {
                                             validEmail: 'Invalid Email Address'
                                         }}
                                     />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="email" md={2}></Label>
+                                <Col md={1}>
+                                    <Control.checkbox model=".agree" id="agree" name="agree"
+                                        className="form-control"
+                                        isToggle={false}
+                                    />
+                                </Col>
+                                <Col md={7}>
+                                <b>May we contact you?</b>
+                                </Col>
+                                <Col md={2}>
+                                    <Control.select model=".select" name="select" className="form-control">
+                                        <option>Tel</option>
+                                        <option>Email</option>
+                                    </Control.select>
                                 </Col>
                             </Row>
                             <Row className="form-group">
